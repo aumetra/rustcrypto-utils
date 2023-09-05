@@ -304,7 +304,7 @@ impl<BS: BlockSizes> BlockBuffer<BS, Lazy> {
     pub fn serialize(&self) -> BlockP1<BS>
     where
         BS: Add<B1>,
-        Add1<BS>: ArrayLength<u8>,
+        Add1<BS>: ArrayLength,
     {
         let mut res = BlockP1::<BS>::default();
         res[0] = self.pos;
@@ -318,7 +318,7 @@ impl<BS: BlockSizes> BlockBuffer<BS, Lazy> {
     pub fn deserialize(buffer: &BlockP1<BS>) -> Result<Self, Error>
     where
         BS: Add<B1>,
-        Add1<BS>: ArrayLength<u8>,
+        Add1<BS>: ArrayLength,
     {
         let pos = buffer[0];
         if !<Lazy as sealed::Sealed>::invariant(pos as usize, BS::USIZE) {
@@ -328,7 +328,7 @@ impl<BS: BlockSizes> BlockBuffer<BS, Lazy> {
             return Err(Error);
         }
         Ok(Self {
-            buffer: GenericArray::clone_from_slice(&buffer[1..]),
+            buffer: GenericArray::from_slice(&buffer[1..]).clone(),
             pos,
         })
     }

@@ -12,8 +12,8 @@ edition = "2021"
 readme = "README.md"
 
 [dependencies]
-crypto-common = "0.2.0-pre"
-generic-array = "0.14"
+crypto-common = { git = "https://github.com/aumetra/rustcrypto-traits" }
+generic-array = "1.0.0-beta.2"
 
 [dev-dependencies]
 hex-literal = "0.3.3"
